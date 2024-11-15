@@ -10,7 +10,7 @@ Está creads la estructura de carpetas y subcarpetas necesarias para cada cosa q
 
 ### Escenas organizadas por categorías:
 
-En la carpeta de Scenes están diferentes carpetas, cada una correspondiente a determinada categoría (y también una escena Main), si se necesita agregar otra se debe agregar siguiendo ese mismo orden
+En la carpeta de Scenes están diferentes carpetas, cada una correspondiente a determinada categoría (en la escena de Sprites los mismos deberían tener animaciones, y también una escena Main), si se necesita agregar otra se debe agregar siguiendo ese mismo orden
 
 Más adelante se puede definir un orden de categorías en el que trabajar para armar un pipeline
 
