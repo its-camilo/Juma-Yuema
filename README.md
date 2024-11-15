@@ -1,4 +1,4 @@
-# **Juma-Yuema**
+# **Juma Yuema**
  
 ## Detalles del repositorio
 
