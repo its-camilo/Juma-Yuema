@@ -7,12 +7,15 @@ public class PlayerController2 : MonoBehaviour
     public float hiddenAlpha = 0.3f; // Opacidad cuando está oculto
     public float visibleAlpha = 1f; // Opacidad cuando está visible
     public bool isHidden = false; // Indica si el jugador está oculto
-
+    private bool canHide = false; // Indica si el jugador puede ocultarse
     private SpriteRenderer spriteRenderer;
+    public float jumpForce = 5f; // Fuerza del salto
+    private Rigidbody2D rb;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -23,10 +26,23 @@ public class PlayerController2 : MonoBehaviour
         transform.Translate(movement);
 
         // Salir del modo oculto al presionar S
-        if (isHidden && Input.GetKeyDown(KeyCode.S))
+        if (isHidden && Input.GetKeyDown(KeyCode.S) && !canHide && isHidden)
         {
             SetVisibility(true);
             isHidden = false;
+        }
+
+        // Saltar al presionar espacio
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        }
+
+        // Ocultar al jugador al presionar W
+        if (Input.GetKeyDown(KeyCode.W) && !isHidden && canHide)
+        {
+            SetVisibility(false);
+            isHidden = true;
         }
     }
 
@@ -35,23 +51,21 @@ public class PlayerController2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Sombra"))
         {
-            if (Input.GetKeyDown(KeyCode.W) && !isHidden)
-            {
-                SetVisibility(false); // Ocultar al jugador
-                isHidden = true;
-            }
+            canHide = true;
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Sombra"))
         {
             if (isHidden)
             {
-                SetVisibility(true); // Mostrar al jugador
+                SetVisibility(true);
                 isHidden = false;
             }
+            
+            canHide = false;
         }
     }
 
